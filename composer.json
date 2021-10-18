@@ -1,0 +1,39 @@
+{
+    "name": "thoth-pharaoh/ecpay-invoice",
+    "description": "綠界B2C開發票工具",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nick Zhang",
+            "email": "castion2293@yahoo.com.tw"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0",
+        "illuminate/support": "^8.64"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.21"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pharaoh\\Invoice\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Pharaoh\\Invoice\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Pharaoh\\Invoice\\InvoiceServiceProvider"
+            ],
+            "aliases": {
+                "Invoice": "Pharaoh\\Invoice\\Facades\\Invoice"
+            }
+        }
+    }
+}

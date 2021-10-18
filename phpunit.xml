@@ -1,0 +1,17 @@
+<phpunit bootstrap="vendor/autoload.php"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         stopOnFailure="true">
+    <testsuites>
+        <testsuite name="Test Suite">
+            <directory>test</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <env name="APP_TIMEZONE" value="Asia/Taipei"/>
+        <env name="TEST_DB_DRIVER" value="mysql"/>
+        <env name="TEST_DB_DATABASE" value="testing"/>
+    </php>
+</phpunit>
