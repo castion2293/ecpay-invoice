@@ -223,6 +223,186 @@ class InvoiceService
     }
 
     /**
+     * 作廢折讓發票
+     *
+     * @param array $data
+     * @return array
+     * @throws InvoiceException
+     */
+    public function allowanceInvalid(array $data): array
+    {
+        try {
+            $this->requestData['Data'] = $this->encryptData(array_merge($this->requestData['Data'], $data));
+
+            $responseData = $this->httpRequest('allowanceInvalid');
+
+            // RtnCode !== 1 一律回傳錯誤
+            if (Arr::get($responseData, 'RtnCode') !== 1) {
+                throw new InvoiceException(Arr::get($responseData, 'RtnMsg'));
+            }
+
+            return $responseData;
+        } catch (\Exception $exception) {
+            throw new InvoiceException($exception->getMessage());
+        }
+    }
+
+    /**
+     * 註銷重開
+     *
+     * @param array $data
+     * @return array
+     * @throws InvoiceException
+     */
+    public function voidWithRelssue(array $data): array
+    {
+        try {
+        } catch (\Exception $exception) {
+            throw new InvoiceException($exception->getMessage());
+        }
+    }
+
+    /**
+     * 查詢發票 根據特店自訂編號
+     *
+     * @param string $relateNumber
+     * @return array
+     * @throws InvoiceException
+     */
+    public function getIssueByRelateNumber(string $relateNumber): array
+    {
+        try {
+        } catch (\Exception $exception) {
+            throw new InvoiceException($exception->getMessage());
+        }
+    }
+
+    /**
+     * 查詢發票 根據發票號及開立日期
+     *
+     * @param string $invoiceNo
+     * @param string $date
+     * @return array
+     * @throws InvoiceException
+     */
+    public function getIssueByInvoiceNoAndData(string $invoiceNo, string $date): array
+    {
+        try {
+        } catch (\Exception $exception) {
+            throw new InvoiceException($exception->getMessage());
+        }
+    }
+
+    /**
+     * 查詢折攘明細
+     *
+     * @param string $invoiceNo
+     * @param string $allowanceNo
+     * @return array
+     * @throws InvoiceException
+     */
+    public function getAllowance(string $invoiceNo, string $allowanceNo): array
+    {
+        try {
+        } catch (\Exception $exception) {
+            throw new InvoiceException($exception->getMessage());
+        }
+    }
+
+    /**
+     * 查詢作廢發票明細
+     *
+     * @param string $relateNumber
+     * @param string $invoiceNo
+     * @param string $invoiceDate
+     * @return array
+     * @throws InvoiceException
+     */
+    public function getInvalid(string $relateNumber, string $invoiceNo, string $invoiceDate): array
+    {
+        try {
+        } catch (\Exception $exception) {
+            throw new InvoiceException($exception->getMessage());
+        }
+    }
+
+    /**
+     * 查詢作廢折讓明細
+     *
+     * @param string $invoiceNo
+     * @param string $allowanceNo
+     * @return array
+     * @throws InvoiceException
+     */
+    public function getAllowanceInvalid(string $invoiceNo, string $allowanceNo): array
+    {
+        try {
+        } catch (\Exception $exception) {
+            throw new InvoiceException($exception->getMessage());
+        }
+    }
+
+    /**
+     * 查詢自軌
+     *
+     * @param array $data
+     * @return array
+     * @throws InvoiceException
+     */
+    public function getInvoiceWordSetting(array $data): array
+    {
+        try {
+        } catch (\Exception $exception) {
+            throw new InvoiceException($exception->getMessage());
+        }
+    }
+
+    /**
+     * 發送發票通知
+     *
+     * @param array $data
+     * @return array
+     * @throws InvoiceException
+     */
+    public function invoiceNotify(array $data): array
+    {
+        try {
+        } catch (\Exception $exception) {
+            throw new InvoiceException($exception->getMessage());
+        }
+    }
+
+    /**
+     * 手機條碼驗證
+     *
+     * @param string $barcode
+     * @return array
+     * @throws InvoiceException
+     */
+    public function checkBarcode(string $barcode): array
+    {
+        try {
+        } catch (\Exception $exception) {
+            throw new InvoiceException($exception->getMessage());
+        }
+    }
+
+    /**
+     * 捐贈碼驗證
+     *
+     * @param string $loveCode
+     * @return array
+     * @throws InvoiceException
+     */
+    public function checkLoveCode(string $loveCode): array
+    {
+        try {
+        } catch (\Exception $exception) {
+            throw new InvoiceException($exception->getMessage());
+        }
+    }
+
+    /**
      * HTTP請求
      *
      * @param string $method

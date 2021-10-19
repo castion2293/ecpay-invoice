@@ -151,3 +151,14 @@ $invoice = Invoice::invalid($data);
 | InvoiceNo |✔| 發票號碼 | String (10) | 長度固定為 10 碼 |
 | InvoiceDate |✔| 發票開立日期 | String (10) | 格式為「yyyy-MM-dd」 |
 | Reason |✔| 作廢原因 | String (120) |  |
+
+### 作廢折讓發票
+```bash
+$invoice = Invoice::allowanceInvalid($data);
+```
+#### $data 內容說明(array格式)
+參數 | 必填 | 名稱 | 類型 | 說明 |
+| ------------|---|:----------------------- | :------| :------|
+| InvoiceNo |✔| 發票號碼 | String (10) | 長度固定為 10 碼 |
+| AllowanceNo |✔| 折讓編號 | String (16) |  |
+| Reason |✔| 作廢原因 | String (120) |  |

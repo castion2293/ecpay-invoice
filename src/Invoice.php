@@ -135,7 +135,7 @@ class Invoice
      */
     public function invalid(array $data): array
     {
-        $dataRequiredFields = ['InvoiceNo', 'InvoiceDate'];
+        $dataRequiredFields = ['InvoiceNo', 'InvoiceDate', 'Reason'];
 
         $this->checkRequiredFields($dataRequiredFields, $data);
 
@@ -147,9 +147,15 @@ class Invoice
      *
      * @param array $data
      * @return array
+     * @throws InvoiceException
      */
     public function allowanceInvalid(array $data): array
     {
+        $dataRequiredFields = ['InvoiceNo', 'AllowanceNo', 'Reason'];
+
+        $this->checkRequiredFields($dataRequiredFields, $data);
+
+        return $this->invoiceService->allowanceInvalid($data);
     }
 
     /**
