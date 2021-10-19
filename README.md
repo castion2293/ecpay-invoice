@@ -245,3 +245,19 @@ $invoice = Invoice::getInvoiceWordSetting($data);
 | UseStatus |✔| 字軌使用狀態 | int | 0:全部，1:未啟用，2:使用中，3:已停用，4:暫停中，5:待審核，6: 審核不通過 |
 | InvType | | 字軌類別 | String (2) | 07:一般稅額發票，08:特種稅額發票 |
 | InvoiceHeader | | 字軌名稱 | String (2) | |
+
+### 發送發票通知
+```bash
+$invoice = Invoice::invoiceNotify($data);
+```
+
+#### $data 內容說明(array格式)
+參數 | 必填 | 名稱 | 類型 | 說明 |
+| ------------|---|:----------------------- | :------| :------|
+| InvoiceNo |✔| 發票號碼 | String (10) | |
+| Notify |✔| 發送方式 | String (1) | S:簡訊 <br> E:電子郵件 <br> A:皆通知時 |
+| InvoiceTag |✔| 發送內容類 型 | String (2) | I: 發票開立 <br> II: 發票作廢 <br> A: 折讓開立 <br> AI: 折讓作廢 <br> AW:發票中獎 |
+| Notified |✔| 發送對象 | String (1) | C: 發送通知給客戶 <br> M: 發送通知給特店 <br> A: 皆發送通知 <br> 注意事項: <br> 若發送對象類型(Notified)為 A 時，請注意廠商後台設定是否接受通知 |
+| AllowanceNo | | 折讓編號 | String (16) | 注意事項: <br> 若發送內容類型(InvoiceTag)為 A 或 AI 時為必填 |
+| Phone | | 發送簡訊號 碼 | String (20) | 此欄位可與客戶電子信箱擇一選填，若客戶電子信箱未填，則此欄 位就必須有值 <br> 格式為數字 |
+| NotifyMail | | 發送電子郵 件 | String (80) | 此欄位可與客戶手機號碼擇一選填，若客戶客戶手機號碼未填，則 此欄位必須有值，且需為有效的 Email 格式 <br> 可帶入多組 Email，並以分號區隔 ex: aa@aa.aa;bb@bb.bb |

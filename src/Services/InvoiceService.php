@@ -459,6 +459,16 @@ class InvoiceService
     public function invoiceNotify(array $data): array
     {
         try {
+            $this->requestData['Data'] = $this->encryptData(array_merge($this->requestData['Data'], $data));
+
+            $responseData = $this->httpRequest('invoiceNotify');
+
+            // RtnCode !== 1 一律回傳錯誤
+            if (Arr::get($responseData, 'RtnCode') !== 1) {
+                throw new InvoiceException(Arr::get($responseData, 'RtnMsg'));
+            }
+
+            return $responseData;
         } catch (\Exception $exception) {
             throw new InvoiceException($exception->getMessage());
         }

@@ -266,9 +266,15 @@ class Invoice
      *
      * @param array $data
      * @return array
+     * @throws InvoiceException
      */
     public function invoiceNotify(array $data): array
     {
+        $dataRequiredFields = ['InvoiceNo', 'Notify', 'InvoiceTag', 'Notified'];
+
+        $this->checkRequiredFields($dataRequiredFields, $data);
+
+        return $this->invoiceService->invoiceNotify($data);
     }
 
     /**
