@@ -105,13 +105,25 @@ class Invoice
     }
 
     /**
-     * 開立線上折讓發票
+     * 開立線上折讓發票(通知開立)
      *
      * @param array $data
      * @return array
+     * @throws InvoiceException
      */
     public function allowanceByCollegiate(array $data): array
     {
+        $dataRequiredFields = ['InvoiceNo', 'InvoiceDate', 'AllowanceNotify', 'AllowanceAmount'];
+        $itemsRequiredFields = ['ItemName', 'ItemCount', 'ItemWord', 'ItemPrice', 'ItemAmount'];
+
+        $this->checkRequiredFields($dataRequiredFields, $data);
+        if (isset($data['Items'])) {
+            foreach ($data['Items'] as $item) {
+                $this->checkRequiredFields($itemsRequiredFields, $item);
+            }
+        }
+
+        return $this->invoiceService->allowanceByCollegiate($data);
     }
 
     /**

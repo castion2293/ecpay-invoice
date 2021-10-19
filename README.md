@@ -131,3 +131,11 @@ $invoice = Invoice::allowance($data);
 | ItemSeq | | 商品序號 | Int |  |
 | ItemTaxType | | 商品課稅別 | String (1) | 當課稅類別[TaxType] = 9 時，此欄位不可為 <br> 1:應稅 <br> 2:零稅率 <br> 3:免稅 <br> 注意事項: <br> 當課稅類別[TaxType] = 9 時，商品課稅類別只能 1.應稅+免稅 2.應 稅+零稅率，免稅和零稅率發票不能同時開立 |
 | ItemRemark | | 商品備註 | String (40) |  |
+
+### 開立線上折讓發票(通知開立)
+```bash
+$invoice = Invoice::allowanceByCollegiate($data);
+```
+
+#### $data 內容說明(array格式)
+各式與 `開立一般折讓發票` 皆相同
