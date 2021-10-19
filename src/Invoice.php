@@ -63,9 +63,11 @@ class Invoice
      *
      * @param string $transactionNumber
      * @return array
+     * @throws InvoiceException
      */
     public function triggerIssue(string $transactionNumber): array
     {
+        return $this->invoiceService->triggerIssue($transactionNumber);
     }
 
     /**

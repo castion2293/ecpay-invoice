@@ -82,3 +82,15 @@ $invoice = Invoice::delayIssue($data);
 | DelayDay |✔| 延遲天數 | int | 若為延遲開立時，延遲天數須介於 1 至 15 天內 <br> 觸發開立時也可設定延遲天數，但須介於 0 至 15 天內 <br> EX1: <br> DelayFlag=1(延遲) <br> DelayDay=7(天數) <br> 此為 7 天後自動開立 <br> EX2: <br> DelayFlag = 2(觸發) <br> DelayDay=2(天數) <br> 此為被觸發後過 2 天才會開立，若此張發票都沒有被觸發，將不會被開立 |
 | Tsr |✔| 交易單號 | String (30) | 用來呼叫付款完成觸發或延遲開立發票 API 的依據 <br> 均為唯一值不可重覆使用 |
 | NotifyURL | | 開立完成時通知特店系統的網址 | String (200) | 注意事項: <br> 使用測試環境時，不提供 NotifyURL 開立通知 |
+
+### 觸發開立發票
+```bash
+$invoice = Invoice::delayIssue($transactionNumber);
+```
+
+#### $transactionNumber 內容說明
+參數 |  名稱 | 類型 | 說明 |
+| ------------|---|:----------------------- | :------|
+$transactionNumber | 交易單號 | string | 觸發開立發票回傳的交易單號 |
+
+

@@ -50,7 +50,14 @@ class InvoiceService
         try {
             $this->requestData['Data'] = $this->encryptData(array_merge($this->requestData['Data'], $data));
 
-            return $this->httpRequest('Issue');
+            $responseData = $this->httpRequest('Issue');
+
+            // RtnCode !== 1 一律回傳錯誤
+            if (Arr::get($responseData, 'RtnCode') !== 1) {
+                throw new InvoiceException(Arr::get($responseData, 'RtnMsg'));
+            }
+
+            return $responseData;
         } catch (\Exception $exception) {
             throw new InvoiceException($exception->getMessage());
         }
@@ -71,7 +78,43 @@ class InvoiceService
 
             $this->requestData['Data'] = $this->encryptData(array_merge($this->requestData['Data'], $data));
 
-            return $this->httpRequest('delayIssue');
+            $responseData = $this->httpRequest('delayIssue');
+
+            // RtnCode !== 1 一律回傳錯誤
+            if (Arr::get($responseData, 'RtnCode') !== 1) {
+                throw new InvoiceException(Arr::get($responseData, 'RtnMsg'));
+            }
+
+            return $responseData;
+        } catch (\Exception $exception) {
+            throw new InvoiceException($exception->getMessage());
+        }
+    }
+
+    /**
+     * 觸發開立發票
+     *
+     * @param string $transactionNumber
+     * @return array
+     * @throws InvoiceException
+     */
+    public function triggerIssue(string $transactionNumber): array
+    {
+        try {
+            $this->requestData['Data']['PayType'] = '2';
+            $this->requestData['Data']['Tsr'] = $transactionNumber;
+
+            $this->requestData['Data'] = $this->encryptData($this->requestData['Data']);
+
+            $responseData = $this->httpRequest('triggerIssue');
+
+            $rtnCode = Arr::get($responseData, 'RtnCode');
+
+            if (!in_array($rtnCode, ['4000003', '4000004'])) {
+                throw new InvoiceException(Arr::get($responseData, 'RtnMsg'));
+            }
+
+            return $responseData;
         } catch (\Exception $exception) {
             throw new InvoiceException($exception->getMessage());
         }
@@ -82,20 +125,12 @@ class InvoiceService
      *
      * @param string $method
      * @return array
-     * @throws InvoiceException
      */
     private function httpRequest(string $method): array
     {
         $url = Arr::get($this->settings, 'invoice_url') . $method;
         $responseRawData = Http::post($url, $this->requestData)->json();
-        $responseData = $this->decryptData($responseRawData['Data']);
-
-        // RtnCode !== 1 一律回傳錯誤
-        if (Arr::get($responseData, 'RtnCode') !== 1) {
-            throw new InvoiceException(Arr::get($responseData, 'RtnMsg'));
-        }
-
-        return $responseData;
+        return $this->decryptData($responseRawData['Data']);
     }
 
     /**
