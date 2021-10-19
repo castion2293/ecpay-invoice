@@ -374,6 +374,20 @@ class InvoiceService
     public function getInvalid(string $relateNumber, string $invoiceNo, string $invoiceDate): array
     {
         try {
+            $this->requestData['Data']['RelateNumber'] = $relateNumber;
+            $this->requestData['Data']['InvoiceNo'] = $invoiceNo;
+            $this->requestData['Data']['InvoiceDate'] = $invoiceDate;
+
+            $this->requestData['Data'] = $this->encryptData($this->requestData['Data']);
+
+            $responseData = $this->httpRequest('getInvalid');
+
+            // RtnCode !== 1 一律回傳錯誤
+            if (Arr::get($responseData, 'RtnCode') !== 1) {
+                throw new InvoiceException(Arr::get($responseData, 'RtnMsg'));
+            }
+
+            return $responseData;
         } catch (\Exception $exception) {
             throw new InvoiceException($exception->getMessage());
         }

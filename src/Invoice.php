@@ -225,9 +225,11 @@ class Invoice
      * @param string $invoiceNo
      * @param string $invoiceDate
      * @return array
+     * @throws InvoiceException
      */
     public function getInvalid(string $relateNumber, string $invoiceNo, string $invoiceDate): array
     {
+        return $this->invoiceService->getInvalid($relateNumber, $invoiceNo, $invoiceDate);
     }
 
     /**
