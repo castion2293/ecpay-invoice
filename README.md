@@ -67,3 +67,18 @@ $invoice = Invoice::issue($data);
 | ItemSeq | | 商品序號 | Int |  |
 | ItemTaxType | | 商品課稅別 | String (1) | 當課稅類別[TaxType] = 9 時，此欄位不可為 <br> 1:應稅 <br> 2:零稅率 <br> 3:免稅 <br> 注意事項: <br> 當課稅類別[TaxType] = 9 時，商品課稅類別只能 1.應稅+免稅 2.應 稅+零稅率，免稅和零稅率發票不能同時開立 |
 | ItemRemark | | 商品備註 | String (40) |  |
+
+### 開立延遲發票
+```bash
+$invoice = Invoice::delayIssue($data);
+```
+
+#### $data 內容說明(array格式)
+大部分與上列 `開立一般發票` 相同 額外增加欄位如下:
+
+參數 | 必填 | 名稱 | 類型 | 說明 |
+| ------------|---|:----------------------- | :------| :------|
+| DelayFlag |✔| 延遲註記 | String (1) | 可註記此張發票要延遲開立或觸發開立發票 <br> 1:延遲開立 <br> 2:觸發開立 |
+| DelayDay |✔| 延遲天數 | int | 若為延遲開立時，延遲天數須介於 1 至 15 天內 <br> 觸發開立時也可設定延遲天數，但須介於 0 至 15 天內 <br> EX1: <br> DelayFlag=1(延遲) <br> DelayDay=7(天數) <br> 此為 7 天後自動開立 <br> EX2: <br> DelayFlag = 2(觸發) <br> DelayDay=2(天數) <br> 此為被觸發後過 2 天才會開立，若此張發票都沒有被觸發，將不會被開立 |
+| Tsr |✔| 交易單號 | String (30) | 用來呼叫付款完成觸發或延遲開立發票 API 的依據 <br> 均為唯一值不可重覆使用 |
+| NotifyURL | | 開立完成時通知特店系統的網址 | String (200) | 注意事項: <br> 使用測試環境時，不提供 NotifyURL 開立通知 |

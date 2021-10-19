@@ -41,9 +41,21 @@ class Invoice
      *
      * @param array $data
      * @return array
+     * @throws InvoiceException
      */
     public function delayIssue(array $data): array
     {
+        $dataRequiredFields = ['RelateNumber', 'Print', 'Donation', 'TaxType', 'SalesAmount', 'InvType', 'DelayFlag', 'DelayDay', 'Tsr'];
+        $itemsRequiredFields = ['ItemName', 'ItemCount', 'ItemWord', 'ItemPrice', 'ItemAmount'];
+
+        $this->checkRequiredFields($dataRequiredFields, $data);
+        if (isset($data['Items'])) {
+            foreach ($data['Items'] as $item) {
+                $this->checkRequiredFields($itemsRequiredFields, $item);
+            }
+        }
+
+        return $this->invoiceService->delayIssue($data);
     }
 
     /**

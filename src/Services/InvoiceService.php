@@ -50,14 +50,28 @@ class InvoiceService
         try {
             $this->requestData['Data'] = $this->encryptData(array_merge($this->requestData['Data'], $data));
 
-            $responseData = $this->httpRequest('Issue');
+            return $this->httpRequest('Issue');
+        } catch (\Exception $exception) {
+            throw new InvoiceException($exception->getMessage());
+        }
+    }
 
-            // RtnCode !== 1 一律回傳錯誤
-            if (Arr::get($responseData, 'RtnCode') !== 1) {
-                throw new InvoiceException(Arr::get($responseData, 'RtnMsg'));
-            }
+    /**
+     * 開立延遲發票
+     *
+     * @param array $data
+     * @return array
+     * @throws InvoiceException
+     */
+    public function delayIssue(array $data): array
+    {
+        try {
+            $this->requestData['Data']['PayType'] = '2';
+            $this->requestData['Data']['PayAct'] = 'ECPAY';
 
-            return $responseData;
+            $this->requestData['Data'] = $this->encryptData(array_merge($this->requestData['Data'], $data));
+
+            return $this->httpRequest('delayIssue');
         } catch (\Exception $exception) {
             throw new InvoiceException($exception->getMessage());
         }
@@ -68,12 +82,20 @@ class InvoiceService
      *
      * @param string $method
      * @return array
+     * @throws InvoiceException
      */
     private function httpRequest(string $method): array
     {
         $url = Arr::get($this->settings, 'invoice_url') . $method;
-        $responseData = Http::post($url, $this->requestData)->json();
-        return $this->decryptData($responseData['Data']);
+        $responseRawData = Http::post($url, $this->requestData)->json();
+        $responseData = $this->decryptData($responseRawData['Data']);
+
+        // RtnCode !== 1 一律回傳錯誤
+        if (Arr::get($responseData, 'RtnCode') !== 1) {
+            throw new InvoiceException(Arr::get($responseData, 'RtnMsg'));
+        }
+
+        return $responseData;
     }
 
     /**
