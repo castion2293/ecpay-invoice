@@ -1,6 +1,6 @@
 {
   "name": "ecpay-invoice",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "綠界B2C開發票工具",
   "main": "index.js",
   "directories": {
