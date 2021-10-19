@@ -211,9 +211,11 @@ class Invoice
      * @param string $invoiceNo
      * @param string $allowanceNo
      * @return array
+     * @throws InvoiceException
      */
     public function getAllowance(string $invoiceNo, string $allowanceNo): array
     {
+        return $this->invoiceService->getAllowance($invoiceNo, $allowanceNo);
     }
 
     /**

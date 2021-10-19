@@ -191,8 +191,20 @@ $relateNumber | 特店自訂編號 | string(30) | 需為唯一值不可重複使
 ```bash
 $invoice = Invoice::getIssueByInvoiceNoAndData($invoiceNo, $invoiceDate);
 ```
+
 #### $invoiceNo 及 $invoiceDate 內容說明
 參數 |  名稱 | 類型 | 說明 |
 | ------------|---|:----------------------- | :------|
 | InvoiceNo |✔| 發票號碼 | String (10) |  |
 | InvoiceDate |✔| 發票開立日期 | String (10) | 格式為「yyyy-MM-dd」 |
+
+### 查詢折攘明細
+```bash
+$invoice = Invoice::getAllowance($invoiceNo, $allowanceNo);
+```
+
+#### $invoiceNo 及 $allowanceNo 內容說明
+參數 |  名稱 | 類型 | 說明 |
+| ------------|---|:----------------------- | :------|
+| InvoiceNo |✔| 發票號碼 | String (10) |  |
+| AllowanceNo |✔| 折讓編號 | String (16) |  |
