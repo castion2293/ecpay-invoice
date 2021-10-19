@@ -404,6 +404,19 @@ class InvoiceService
     public function getAllowanceInvalid(string $invoiceNo, string $allowanceNo): array
     {
         try {
+            $this->requestData['Data']['InvoiceNo'] = $invoiceNo;
+            $this->requestData['Data']['AllowanceNo'] = $allowanceNo;
+
+            $this->requestData['Data'] = $this->encryptData($this->requestData['Data']);
+
+            $responseData = $this->httpRequest('getAllowanceInvalid');
+
+            // RtnCode !== 1 一律回傳錯誤
+            if (Arr::get($responseData, 'RtnCode') !== 1) {
+                throw new InvoiceException(Arr::get($responseData, 'RtnMsg'));
+            }
+
+            return $responseData;
         } catch (\Exception $exception) {
             throw new InvoiceException($exception->getMessage());
         }

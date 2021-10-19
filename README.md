@@ -213,9 +213,22 @@ $invoice = Invoice::getAllowance($invoiceNo, $allowanceNo);
 ```bash
 $invoice = Invoice::getInvalid($relateNumber, $invoiceNo, $invoiceDate);
 ```
+
 #### $relateNumber, $invoiceNo 及 $invoiceDate 內容說明
 參數 |  名稱 | 類型 | 說明 |
 | ------------|---|:----------------------- | :------|
 | $relateNumber |✔| 特店自訂編號 | String (10) | 需為唯一值不可重複使用 <br> 注意事項: <br> 請勿使用特殊符號 |
 | InvoiceNo |✔| 發票號碼 | String (10) |  |
 | InvoiceDate |✔| 發票開立日期 | String (10) | 格式為「yyyy-MM-dd」 |
+
+### 查詢作廢折讓明細
+```bash
+$invoice = Invoice::getAllowanceInvalid($invoiceNo, $allowanceNo);
+```
+
+#### $invoiceNo 及 $allowanceNo 內容說明
+參數 | 必填 | 名稱 | 類型 | 說明 |
+| ------------|---|:----------------------- | :------| :------|
+| InvoiceNo |✔| 發票號碼 | String (10) | 長度固定為 10 碼 |
+| AllowanceNo |✔| 折讓編號 | String (16) |  |
+
