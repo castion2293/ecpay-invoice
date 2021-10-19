@@ -103,4 +103,31 @@ $invoice = Invoice::cancelDelayIssue($transactionNumber);
 | ------------|---|:----------------------- | :------|
 $transactionNumber | 交易單號 | string | 觸發開立發票回傳的交易單號 |
 
+### 開立一般折讓發票
+```bash
+$invoice = Invoice::allowance($data);
+```
 
+#### $data 內容說明(array格式)
+參數 | 必填 | 名稱 | 類型 | 說明 |
+| ------------|---|:----------------------- | :------| :------|
+| InvoiceNo |✔| 發票號碼 | String (10) | 長度固定為 10 碼 |
+| InvoiceDate |✔| 發票開立日期 | String (10) | 格式為「yyyy-MM-dd」 |
+| AllowanceNotify |✔| 通知類別 | String (1) | 開立折讓後，寄送將相關發票折讓資訊通知消費者 <br> S:簡訊 <br> E:電子郵件 <br> A:皆通知時 <br> N:皆不通知 |
+| AllowanceAmount |✔| 折讓單總金額(含稅) | int |  |
+| CustomerName | | 客戶名稱 | String (60) | 格式為中、英文及數字等 |
+| NotifyMail | | 通知電子信箱 | String (100) | 1. 若通知類別[AllowanceNotify]為電子郵件(E)，此欄位須有值 <br> 2. 需為有效的 Email 格式 <br> 3. 將參數值做 UrlEncode <br> 4. 可帶入多組 Email，並以分號區隔 ex: aa@aa.aa;bb@bb.bb |
+| NotifyPhone | | 通知手機號 碼 | String (20) | 1. 若通知類別[AllowanceNotify]為簡訊方式(S)，此欄位須有值 <br> 2. 格式為數字組成 |
+| Items | | 商品 | array | 可多筆，商品最多支援 200 項 請參閱下面 Items 詳細說明 |
+
+#### Items 參數說明(array格式)
+參數 | 必填 | 名稱 | 類型 | 說明 |
+| ------------|---|:----------------------- | :------| :------|
+| ItemName |✔| 商品名稱 | String (100) |  |
+| ItemCount |✔| 商品數量 | Number | 支援整數 8 位小數 2 位 |
+| ItemWord |✔| 商品單位 | String (6) |  |
+| ItemPrice |✔| 商品單價 | Number | 支援整數 8 位小數 7 位 <br> 若 vat=0(未稅)，商品金額需為未稅金額 <br> 若 vat=1(含稅)，商品金額需為含稅金額 |
+| ItemAmount |✔| 商品合計 | Number | 支援整數 8 位小數 7 位 <br> 此為含稅小計金額 <br> ItemAmount 各項總合並四捨五入=salesAmount(含稅) <br> 注意事項: <br> ※ItemAmount 需統一為含稅金額，且商品金額需符合以下規則: <br> 1. 當 vat = 1, 且 TaxType = 1 或 4: ItemPrice(含稅)*ItemCount = ItemAmount(含稅)ex: 500*5 = 2500 <br> 2. 當 vat = 0,且 TaxType = 1(稅率 5%): ItemPrice(不含稅)*ItemCount*1.05 = ItemAmount(含稅) ex: 500*5*1.05 = 2625 <br> 3. 當 vat = 0, TaxType = 4 且 ex: 500*5*1.00 = 2500 |
+| ItemSeq | | 商品序號 | Int |  |
+| ItemTaxType | | 商品課稅別 | String (1) | 當課稅類別[TaxType] = 9 時，此欄位不可為 <br> 1:應稅 <br> 2:零稅率 <br> 3:免稅 <br> 注意事項: <br> 當課稅類別[TaxType] = 9 時，商品課稅類別只能 1.應稅+免稅 2.應 稅+零稅率，免稅和零稅率發票不能同時開立 |
+| ItemRemark | | 商品備註 | String (40) |  |

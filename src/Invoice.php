@@ -87,9 +87,21 @@ class Invoice
      *
      * @param array $data
      * @return array
+     * @throws InvoiceException
      */
     public function allowance(array $data): array
     {
+        $dataRequiredFields = ['InvoiceNo', 'InvoiceDate', 'AllowanceNotify', 'AllowanceAmount'];
+        $itemsRequiredFields = ['ItemName', 'ItemCount', 'ItemWord', 'ItemPrice', 'ItemAmount'];
+
+        $this->checkRequiredFields($dataRequiredFields, $data);
+        if (isset($data['Items'])) {
+            foreach ($data['Items'] as $item) {
+                $this->checkRequiredFields($itemsRequiredFields, $item);
+            }
+        }
+
+        return $this->invoiceService->allowance($data);
     }
 
     /**

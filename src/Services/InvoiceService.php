@@ -148,6 +148,31 @@ class InvoiceService
     }
 
     /**
+     * 開立一般折讓發票
+     *
+     * @param array $data
+     * @return array
+     * @throws InvoiceException
+     */
+    public function allowance(array $data): array
+    {
+        try {
+            $this->requestData['Data'] = $this->encryptData(array_merge($this->requestData['Data'], $data));
+
+            $responseData = $this->httpRequest('allowance');
+
+            // RtnCode !== 1 一律回傳錯誤
+            if (Arr::get($responseData, 'RtnCode') !== 1) {
+                throw new InvoiceException(Arr::get($responseData, 'RtnMsg'));
+            }
+
+            return $responseData;
+        } catch (\Exception $exception) {
+            throw new InvoiceException($exception->getMessage());
+        }
+    }
+
+    /**
      * HTTP請求
      *
      * @param string $method
