@@ -176,3 +176,23 @@ $invoice = Invoice::voidWithReIssue($data);
 | InvoiceNo |✔| 發票號碼 | String (10) | 長度固定為 10 碼 |
 | VoidReason |✔| 註銷原因 | String (20) |  |
 | InvoiceDate |✔| 發票開立時間 | String (20) | 格式為 yyyy-MM-dd HH:mm:ss <br> 發票開立時間需為先前開立發票的時間 |
+
+### 查詢發票(根據特店自訂編號)
+```bash
+$invoice = Invoice::getIssueByRelateNumber($relateNumber);
+```
+
+#### $relateNumber 內容說明
+參數 |  名稱 | 類型 | 說明 |
+| ------------|---|:----------------------- | :------|
+$relateNumber | 特店自訂編號 | string(30) | 需為唯一值不可重複使用 <br> 注意事項: <br> 請勿使用特殊符號 |
+
+### 查詢發票(根據發票號及開立日期)
+```bash
+$invoice = Invoice::getIssueByInvoiceNoAndData($invoiceNo, $invoiceDate);
+```
+#### $invoiceNo 及 $invoiceDate 內容說明
+參數 |  名稱 | 類型 | 說明 |
+| ------------|---|:----------------------- | :------|
+| InvoiceNo |✔| 發票號碼 | String (10) |  |
+| InvoiceDate |✔| 發票開立日期 | String (10) | 格式為「yyyy-MM-dd」 |

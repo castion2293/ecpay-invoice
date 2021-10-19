@@ -50,7 +50,7 @@ class InvoiceService
         try {
             $this->requestData['Data'] = $this->encryptData(array_merge($this->requestData['Data'], $data));
 
-            $responseData = $this->httpRequest('Issue');
+            $responseData = $this->httpRequest('issue');
 
             // RtnCode !== 1 一律回傳錯誤
             if (Arr::get($responseData, 'RtnCode') !== 1) {
@@ -287,6 +287,18 @@ class InvoiceService
     public function getIssueByRelateNumber(string $relateNumber): array
     {
         try {
+            $this->requestData['Data']['RelateNumber'] = $relateNumber;
+
+            $this->requestData['Data'] = $this->encryptData($this->requestData['Data']);
+
+            $responseData = $this->httpRequest('getIssue');
+
+            // RtnCode !== 1 一律回傳錯誤
+            if (Arr::get($responseData, 'RtnCode') !== 1) {
+                throw new InvoiceException(Arr::get($responseData, 'RtnMsg'));
+            }
+
+            return $responseData;
         } catch (\Exception $exception) {
             throw new InvoiceException($exception->getMessage());
         }
@@ -303,6 +315,19 @@ class InvoiceService
     public function getIssueByInvoiceNoAndData(string $invoiceNo, string $date): array
     {
         try {
+            $this->requestData['Data']['InvoiceNo'] = $invoiceNo;
+            $this->requestData['Data']['InvoiceDate'] = $date;
+
+            $this->requestData['Data'] = $this->encryptData($this->requestData['Data']);
+
+            $responseData = $this->httpRequest('getIssue');
+
+            // RtnCode !== 1 一律回傳錯誤
+            if (Arr::get($responseData, 'RtnCode') !== 1) {
+                throw new InvoiceException(Arr::get($responseData, 'RtnMsg'));
+            }
+
+            return $responseData;
         } catch (\Exception $exception) {
             throw new InvoiceException($exception->getMessage());
         }

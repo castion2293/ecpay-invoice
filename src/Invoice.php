@@ -185,9 +185,11 @@ class Invoice
      *
      * @param string $relateNumber
      * @return array
+     * @throws InvoiceException
      */
     public function getIssueByRelateNumber(string $relateNumber): array
     {
+        return $this->invoiceService->getIssueByRelateNumber($relateNumber);
     }
 
     /**
@@ -196,9 +198,11 @@ class Invoice
      * @param string $invoiceNo
      * @param string $date
      * @return array
+     * @throws InvoiceException
      */
     public function getIssueByInvoiceNoAndData(string $invoiceNo, string $date): array
     {
+        return $this->invoiceService->getIssueByInvoiceNoAndData($invoiceNo, $date);
     }
 
     /**
