@@ -209,7 +209,7 @@ $invoice = Invoice::getAllowance($invoiceNo, $allowanceNo);
 | InvoiceNo |✔| 發票號碼 | String (10) |  |
 | AllowanceNo |✔| 折讓編號 | String (16) |  |
 
-### 查詢作廢折讓明細
+### 查詢作廢發票明細
 ```bash
 $invoice = Invoice::getInvalid($relateNumber, $invoiceNo, $invoiceDate);
 ```
@@ -232,3 +232,16 @@ $invoice = Invoice::getAllowanceInvalid($invoiceNo, $allowanceNo);
 | InvoiceNo |✔| 發票號碼 | String (10) | 長度固定為 10 碼 |
 | AllowanceNo |✔| 折讓編號 | String (16) |  |
 
+### 查詢字軌
+```bash
+$invoice = Invoice::getInvoiceWordSetting($data);
+```
+
+#### $data 內容說明(array格式)
+參數 | 必填 | 名稱 | 類型 | 說明 |
+| ------------|---|:----------------------- | :------| :------|
+| InvoiceYear |✔| 發票年度 | String (3) | 僅可查詢去年、當年與明年的發票年度，格式為民國年 ex:109 |
+| InvoiceTerm |✔| 發票期別 | int | 0:全部，1: 1-2 月，2: 3-4 月，3: 5-6 月，4: 7-8 月，5: 9-10 月，6: 11-12月 |
+| UseStatus |✔| 字軌使用狀態 | int | 0:全部，1:未啟用，2:使用中，3:已停用，4:暫停中，5:待審核，6: 審核不通過 |
+| InvType | | 字軌類別 | String (2) | 07:一般稅額發票，08:特種稅額發票 |
+| InvoiceHeader | | 字軌名稱 | String (2) | |

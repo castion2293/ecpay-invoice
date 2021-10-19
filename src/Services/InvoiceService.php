@@ -423,7 +423,7 @@ class InvoiceService
     }
 
     /**
-     * 查詢自軌
+     * 查詢字軌
      *
      * @param array $data
      * @return array
@@ -432,6 +432,18 @@ class InvoiceService
     public function getInvoiceWordSetting(array $data): array
     {
         try {
+            $this->requestData['Data']['InvoiceCategory'] = 1;
+
+            $this->requestData['Data'] = $this->encryptData(array_merge($this->requestData['Data'], $data));
+
+            $responseData = $this->httpRequest('getInvoiceWordSetting');
+
+            // RtnCode !== 1 一律回傳錯誤
+            if (Arr::get($responseData, 'RtnCode') !== 1) {
+                throw new InvoiceException(Arr::get($responseData, 'RtnMsg'));
+            }
+
+            return $responseData;
         } catch (\Exception $exception) {
             throw new InvoiceException($exception->getMessage());
         }

@@ -246,13 +246,19 @@ class Invoice
     }
 
     /**
-     * 查詢自軌
+     * 查詢字軌
      *
      * @param array $data
      * @return array
+     * @throws InvoiceException
      */
     public function getInvoiceWordSetting(array $data): array
     {
+        $dataRequiredFields = ['InvoiceYear', 'InvoiceTerm', 'UseStatus'];
+
+        $this->checkRequiredFields($dataRequiredFields, $data);
+
+        return $this->invoiceService->getInvoiceWordSetting($data);
     }
 
     /**
