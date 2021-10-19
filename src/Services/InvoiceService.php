@@ -254,9 +254,24 @@ class InvoiceService
      * @return array
      * @throws InvoiceException
      */
-    public function voidWithRelssue(array $data): array
+    public function voidWithReIssue(array $data): array
     {
         try {
+            $requestData = [
+                'VoidModel' => Arr::only($data, ['InvoiceNo', 'VoidReason']),
+                'IssueModel' => array_merge(Arr::except($data, ['InvoiceNo', 'VoidReason']), $this->requestData['Data'])
+            ];
+
+            $this->requestData['Data'] = $this->encryptData($requestData);
+
+            $responseData = $this->httpRequest('voidWithReIssue');
+
+            // RtnCode !== 1 一律回傳錯誤
+            if (Arr::get($responseData, 'RtnCode') !== 1) {
+                throw new InvoiceException(Arr::get($responseData, 'RtnMsg'));
+            }
+
+            return $responseData;
         } catch (\Exception $exception) {
             throw new InvoiceException($exception->getMessage());
         }

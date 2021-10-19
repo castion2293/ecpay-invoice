@@ -162,3 +162,17 @@ $invoice = Invoice::allowanceInvalid($data);
 | InvoiceNo |✔| 發票號碼 | String (10) | 長度固定為 10 碼 |
 | AllowanceNo |✔| 折讓編號 | String (16) |  |
 | Reason |✔| 作廢原因 | String (120) |  |
+
+### 註銷重開
+```bash
+$invoice = Invoice::voidWithReIssue($data);
+```
+
+#### $data 內容說明(array格式)
+大部分與上列 `開立一般發票` 相同 額外增加欄位如下:
+
+參數 | 必填 | 名稱 | 類型 | 說明 |
+| ------------|---|:----------------------- | :------| :------|
+| InvoiceNo |✔| 發票號碼 | String (10) | 長度固定為 10 碼 |
+| VoidReason |✔| 註銷原因 | String (20) |  |
+| InvoiceDate |✔| 發票開立時間 | String (20) | 格式為 yyyy-MM-dd HH:mm:ss <br> 發票開立時間需為先前開立發票的時間 |

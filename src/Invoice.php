@@ -163,9 +163,21 @@ class Invoice
      *
      * @param array $data
      * @return array
+     * @throws InvoiceException
      */
-    public function voidWithRelssue(array $data): array
+    public function voidWithReIssue(array $data): array
     {
+        $dataRequiredFields = ['InvoiceNo', 'VoidReason', 'RelateNumber', 'InvoiceDate', 'Print', 'Donation', 'TaxType', 'SalesAmount', 'InvType'];
+        $itemsRequiredFields = ['ItemName', 'ItemCount', 'ItemWord', 'ItemPrice', 'ItemAmount'];
+
+        $this->checkRequiredFields($dataRequiredFields, $data);
+        if (isset($data['Items'])) {
+            foreach ($data['Items'] as $item) {
+                $this->checkRequiredFields($itemsRequiredFields, $item);
+            }
+        }
+
+        return $this->invoiceService->voidWithReIssue($data);
     }
 
     /**
