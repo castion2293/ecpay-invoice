@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5](https://github.com/castion2293/ecpay-invoice/compare/v0.0.4...v0.0.5) (2021-10-19)
+
+
+### Bug Fixes
+
+* 完成觸發開立發票([@nick](https://github.com/nick)) ([d0f1b9a](https://github.com/castion2293/ecpay-invoice/commit/d0f1b9a7a81c992127936901f5a31afbb852de5d))
+
 ### [0.0.4](https://github.com/castion2293/ecpay-invoice/compare/v0.0.3...v0.0.4) (2021-10-19)
 
 
