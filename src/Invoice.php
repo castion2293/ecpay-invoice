@@ -294,9 +294,11 @@ class Invoice
      *
      * @param string $loveCode
      * @return array
+     * @throws InvoiceException
      */
     public function checkLoveCode(string $loveCode): array
     {
+        return $this->invoiceService->checkLoveCode($loveCode);
     }
 
     /**
