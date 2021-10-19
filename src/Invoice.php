@@ -282,9 +282,11 @@ class Invoice
      *
      * @param string $barcode
      * @return array
+     * @throws InvoiceException
      */
     public function checkBarcode(string $barcode): array
     {
+        return $this->invoiceService->checkBarcode($barcode);
     }
 
     /**
