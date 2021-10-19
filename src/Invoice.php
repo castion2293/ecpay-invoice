@@ -75,9 +75,11 @@ class Invoice
      *
      * @param string $transactionNumber
      * @return array
+     * @throws InvoiceException
      */
     public function cancelDelayIssue(string $transactionNumber): array
     {
+        return $this->invoiceService->cancelDelayIssue($transactionNumber);
     }
 
     /**

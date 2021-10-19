@@ -93,4 +93,14 @@ $invoice = Invoice::delayIssue($transactionNumber);
 | ------------|---|:----------------------- | :------|
 $transactionNumber | 交易單號 | string | 觸發開立發票回傳的交易單號 |
 
+### 取消延遲開立發票
+```bash
+$invoice = Invoice::cancelDelayIssue($transactionNumber);
+```
+
+#### $transactionNumber 內容說明
+參數 |  名稱 | 類型 | 說明 |
+| ------------|---|:----------------------- | :------|
+$transactionNumber | 交易單號 | string | 觸發開立發票回傳的交易單號 |
+
 
