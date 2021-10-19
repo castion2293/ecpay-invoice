@@ -131,9 +131,15 @@ class Invoice
      *
      * @param array $data
      * @return array
+     * @throws InvoiceException
      */
-    public function invalide(array $data): array
+    public function invalid(array $data): array
     {
+        $dataRequiredFields = ['InvoiceNo', 'InvoiceDate'];
+
+        $this->checkRequiredFields($dataRequiredFields, $data);
+
+        return $this->invoiceService->invalid($data);
     }
 
     /**

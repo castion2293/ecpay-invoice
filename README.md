@@ -139,3 +139,15 @@ $invoice = Invoice::allowanceByCollegiate($data);
 
 #### $data 內容說明(array格式)
 各式與 `開立一般折讓發票` 皆相同
+
+### 作廢發票
+```bash
+$invoice = Invoice::invalid($data);
+```
+
+#### $data 內容說明(array格式)
+參數 | 必填 | 名稱 | 類型 | 說明 |
+| ------------|---|:----------------------- | :------| :------|
+| InvoiceNo |✔| 發票號碼 | String (10) | 長度固定為 10 碼 |
+| InvoiceDate |✔| 發票開立日期 | String (10) | 格式為「yyyy-MM-dd」 |
+| Reason |✔| 作廢原因 | String (120) |  |
