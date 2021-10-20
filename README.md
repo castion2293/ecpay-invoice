@@ -27,6 +27,8 @@ INVOICE_VISION="3.0.0"
 use Pharaoh\Invoice\Facades\Invoice;
 ```
 
+- [觸發開立發票](#trigger-issue)
+
 ### 開立一般發票
 ```bash
 $invoice = Invoice::issue($data);
@@ -83,9 +85,9 @@ $invoice = Invoice::delayIssue($data);
 | Tsr |✔| 交易單號 | String (30) | 用來呼叫付款完成觸發或延遲開立發票 API 的依據 <br> 均為唯一值不可重覆使用 |
 | NotifyURL | | 開立完成時通知特店系統的網址 | String (200) | 注意事項: <br> 使用測試環境時，不提供 NotifyURL 開立通知 |
 
-### 觸發開立發票
+### <a name="trigger-issue">觸發開立發票</a>
 ```bash
-$invoice = Invoice::delayIssue($transactionNumber);
+$invoice = Invoice::triggerIssue($transactionNumber);
 ```
 
 #### $transactionNumber 內容說明
