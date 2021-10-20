@@ -27,9 +27,26 @@ INVOICE_VISION="3.0.0"
 use Pharaoh\Invoice\Facades\Invoice;
 ```
 
+- [開立一般發票](#issue)
+- [開立延遲發票](#delay-issue)
 - [觸發開立發票](#trigger-issue)
+- [取消延遲開立發票](#cancel-delay-issue)
+- [開立一般折讓發票](#allowance)
+- [開立線上折讓發票(通知開立)](#allowance-by-collegiate)
+- [作廢發票](#invalid)
+- [作廢折讓發票](#allowance-invalid)
+- [註銷重開](#void-with-re-issue)
+- [查詢發票(根據特店自訂編號)](#get-issue-by-relate-number)
+- [查詢發票(根據發票號及開立日期)](#get-issue-by-invoice-no-and-date)
+- [查詢折攘明細](#get-allowance)
+- [查詢作廢發票明細](#get-invalid)
+- [查詢作廢折讓明細](#get-allowance-invalid)
+- [查詢字軌](#get-invoice-word-setting)
+- [發送發票通知](#invoice-notify)
+- [手機條碼驗證](#check-barcode)
+- [捐贈碼驗證](#check-love-code)
 
-### 開立一般發票
+### <a name="issue">開立一般發票</a>
 ```bash
 $invoice = Invoice::issue($data);
 ```
@@ -70,7 +87,7 @@ $invoice = Invoice::issue($data);
 | ItemTaxType | | 商品課稅別 | String (1) | 當課稅類別[TaxType] = 9 時，此欄位不可為 <br> 1:應稅 <br> 2:零稅率 <br> 3:免稅 <br> 注意事項: <br> 當課稅類別[TaxType] = 9 時，商品課稅類別只能 1.應稅+免稅 2.應 稅+零稅率，免稅和零稅率發票不能同時開立 |
 | ItemRemark | | 商品備註 | String (40) |  |
 
-### 開立延遲發票
+### <a name="delay-issue">開立延遲發票</a>
 ```bash
 $invoice = Invoice::delayIssue($data);
 ```
@@ -95,7 +112,7 @@ $invoice = Invoice::triggerIssue($transactionNumber);
 | ------------|---|:----------------------- | :------|
 $transactionNumber | 交易單號 | string | 觸發開立發票回傳的交易單號 |
 
-### 取消延遲開立發票
+### <a name="cancel-delay-issue">取消延遲開立發票</a>
 ```bash
 $invoice = Invoice::cancelDelayIssue($transactionNumber);
 ```
@@ -105,7 +122,7 @@ $invoice = Invoice::cancelDelayIssue($transactionNumber);
 | ------------|---|:----------------------- | :------|
 $transactionNumber | 交易單號 | string | 觸發開立發票回傳的交易單號 |
 
-### 開立一般折讓發票
+### <a name="allowance">開立一般折讓發票</a>
 ```bash
 $invoice = Invoice::allowance($data);
 ```
@@ -134,7 +151,7 @@ $invoice = Invoice::allowance($data);
 | ItemTaxType | | 商品課稅別 | String (1) | 當課稅類別[TaxType] = 9 時，此欄位不可為 <br> 1:應稅 <br> 2:零稅率 <br> 3:免稅 <br> 注意事項: <br> 當課稅類別[TaxType] = 9 時，商品課稅類別只能 1.應稅+免稅 2.應 稅+零稅率，免稅和零稅率發票不能同時開立 |
 | ItemRemark | | 商品備註 | String (40) |  |
 
-### 開立線上折讓發票(通知開立)
+### <a name="allowance-by-collegiate">開立線上折讓發票(通知開立)</a>
 ```bash
 $invoice = Invoice::allowanceByCollegiate($data);
 ```
@@ -142,7 +159,7 @@ $invoice = Invoice::allowanceByCollegiate($data);
 #### $data 內容說明(array格式)
 各式與 `開立一般折讓發票` 皆相同
 
-### 作廢發票
+### <a name="invalid">作廢發票</a>
 ```bash
 $invoice = Invoice::invalid($data);
 ```
@@ -154,7 +171,7 @@ $invoice = Invoice::invalid($data);
 | InvoiceDate |✔| 發票開立日期 | String (10) | 格式為「yyyy-MM-dd」 |
 | Reason |✔| 作廢原因 | String (120) |  |
 
-### 作廢折讓發票
+### <a name="allowance-invalid">作廢折讓發票</a>
 ```bash
 $invoice = Invoice::allowanceInvalid($data);
 ```
@@ -165,7 +182,7 @@ $invoice = Invoice::allowanceInvalid($data);
 | AllowanceNo |✔| 折讓編號 | String (16) |  |
 | Reason |✔| 作廢原因 | String (120) |  |
 
-### 註銷重開
+### <a name="void-with-re-issue">註銷重開</a>
 ```bash
 $invoice = Invoice::voidWithReIssue($data);
 ```
@@ -179,7 +196,7 @@ $invoice = Invoice::voidWithReIssue($data);
 | VoidReason |✔| 註銷原因 | String (20) |  |
 | InvoiceDate |✔| 發票開立時間 | String (20) | 格式為 yyyy-MM-dd HH:mm:ss <br> 發票開立時間需為先前開立發票的時間 |
 
-### 查詢發票(根據特店自訂編號)
+### <a name="get-issue-by-relate-number">查詢發票(根據特店自訂編號)</a>
 ```bash
 $invoice = Invoice::getIssueByRelateNumber($relateNumber);
 ```
@@ -189,7 +206,7 @@ $invoice = Invoice::getIssueByRelateNumber($relateNumber);
 | ------------|---|:----------------------- | :------|
 $relateNumber | 特店自訂編號 | string(30) | 需為唯一值不可重複使用 <br> 注意事項: <br> 請勿使用特殊符號 |
 
-### 查詢發票(根據發票號及開立日期)
+### <a name="get-issue-by-invoice-no-and-date">查詢發票(根據發票號及開立日期)</a>
 ```bash
 $invoice = Invoice::getIssueByInvoiceNoAndData($invoiceNo, $invoiceDate);
 ```
@@ -200,7 +217,7 @@ $invoice = Invoice::getIssueByInvoiceNoAndData($invoiceNo, $invoiceDate);
 | InvoiceNo |✔| 發票號碼 | String (10) |  |
 | InvoiceDate |✔| 發票開立日期 | String (10) | 格式為「yyyy-MM-dd」 |
 
-### 查詢折攘明細
+### <a name="get-allowance">查詢折攘明細</a>
 ```bash
 $invoice = Invoice::getAllowance($invoiceNo, $allowanceNo);
 ```
@@ -211,7 +228,7 @@ $invoice = Invoice::getAllowance($invoiceNo, $allowanceNo);
 | InvoiceNo |✔| 發票號碼 | String (10) |  |
 | AllowanceNo |✔| 折讓編號 | String (16) |  |
 
-### 查詢作廢發票明細
+### <a name="get-invalid">查詢作廢發票明細</a>
 ```bash
 $invoice = Invoice::getInvalid($relateNumber, $invoiceNo, $invoiceDate);
 ```
@@ -223,7 +240,7 @@ $invoice = Invoice::getInvalid($relateNumber, $invoiceNo, $invoiceDate);
 | InvoiceNo |✔| 發票號碼 | String (10) |  |
 | InvoiceDate |✔| 發票開立日期 | String (10) | 格式為「yyyy-MM-dd」 |
 
-### 查詢作廢折讓明細
+### <a name="get-allowance-invalid">查詢作廢折讓明細</a>
 ```bash
 $invoice = Invoice::getAllowanceInvalid($invoiceNo, $allowanceNo);
 ```
@@ -234,7 +251,7 @@ $invoice = Invoice::getAllowanceInvalid($invoiceNo, $allowanceNo);
 | InvoiceNo |✔| 發票號碼 | String (10) | 長度固定為 10 碼 |
 | AllowanceNo |✔| 折讓編號 | String (16) |  |
 
-### 查詢字軌
+### <a name="get-invoice-word-setting">查詢字軌</a>
 ```bash
 $invoice = Invoice::getInvoiceWordSetting($data);
 ```
@@ -248,7 +265,7 @@ $invoice = Invoice::getInvoiceWordSetting($data);
 | InvType | | 字軌類別 | String (2) | 07:一般稅額發票，08:特種稅額發票 |
 | InvoiceHeader | | 字軌名稱 | String (2) | |
 
-### 發送發票通知
+### <a name="invoice-notify">發送發票通知</a>
 ```bash
 $invoice = Invoice::invoiceNotify($data);
 ```
@@ -264,7 +281,7 @@ $invoice = Invoice::invoiceNotify($data);
 | Phone | | 發送簡訊號 碼 | String (20) | 此欄位可與客戶電子信箱擇一選填，若客戶電子信箱未填，則此欄 位就必須有值 <br> 格式為數字 |
 | NotifyMail | | 發送電子郵 件 | String (80) | 此欄位可與客戶手機號碼擇一選填，若客戶客戶手機號碼未填，則 此欄位必須有值，且需為有效的 Email 格式 <br> 可帶入多組 Email，並以分號區隔 ex: aa@aa.aa;bb@bb.bb |
 
-### 手機條碼驗證
+### <a name="check-barcode">手機條碼驗證</a>
 ```bash
 $invoice = Invoice::checkBarcode($barcode);
 ```
@@ -274,7 +291,7 @@ $invoice = Invoice::checkBarcode($barcode);
 | ------------|---|:----------------------- | :------|
 | $barcode | 手機條碼 | String (8) | 格式應為 8 碼字元，第 1 碼為『/』; 其餘 7 碼則由數字【0-9】、大 寫英文【A-Z】與特殊符號【+】【-】【.】這 39 個字元組成 <br> 注意事項: <br> 若手機條碼中有加號，可能在介接驗證時發生錯誤，請將加號改為 空白字元，產生驗證碼 <br> 英文、數字、符號僅接受半形字元 |
 
-### 捐贈碼驗證
+### <a name="check-love-code">捐贈碼驗證</a>
 ```bash
 $invoice = Invoice::checkLoveCode($loveCode);
 ```
