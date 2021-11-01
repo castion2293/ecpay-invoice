@@ -214,8 +214,8 @@ $invoice = Invoice::getIssueByInvoiceNoAndData($invoiceNo, $invoiceDate);
 #### $invoiceNo 及 $invoiceDate 內容說明
 參數 |  名稱 | 類型 | 說明 |
 | ------------|---|:----------------------- | :------|
-| InvoiceNo |✔| 發票號碼 | String (10) |  |
-| InvoiceDate |✔| 發票開立日期 | String (10) | 格式為「yyyy-MM-dd」 |
+| InvoiceNo | 發票號碼 | String (10) |  |
+| InvoiceDate | 發票開立日期 | String (10) | 格式為「yyyy-MM-dd」 |
 
 ### <a name="get-allowance">查詢折攘明細</a>
 ```bash
@@ -225,8 +225,8 @@ $invoice = Invoice::getAllowance($invoiceNo, $allowanceNo);
 #### $invoiceNo 及 $allowanceNo 內容說明
 參數 |  名稱 | 類型 | 說明 |
 | ------------|---|:----------------------- | :------|
-| InvoiceNo |✔| 發票號碼 | String (10) |  |
-| AllowanceNo |✔| 折讓編號 | String (16) |  |
+| InvoiceNo | 發票號碼 | String (10) |  |
+| AllowanceNo | 折讓編號 | String (16) |  |
 
 ### <a name="get-invalid">查詢作廢發票明細</a>
 ```bash
@@ -236,9 +236,9 @@ $invoice = Invoice::getInvalid($relateNumber, $invoiceNo, $invoiceDate);
 #### $relateNumber, $invoiceNo 及 $invoiceDate 內容說明
 參數 |  名稱 | 類型 | 說明 |
 | ------------|---|:----------------------- | :------|
-| $relateNumber |✔| 特店自訂編號 | String (10) | 需為唯一值不可重複使用 <br> 注意事項: <br> 請勿使用特殊符號 |
-| InvoiceNo |✔| 發票號碼 | String (10) |  |
-| InvoiceDate |✔| 發票開立日期 | String (10) | 格式為「yyyy-MM-dd」 |
+| $relateNumber | 特店自訂編號 | String (10) | 需為唯一值不可重複使用 <br> 注意事項: <br> 請勿使用特殊符號 |
+| InvoiceNo | 發票號碼 | String (10) |  |
+| InvoiceDate | 發票開立日期 | String (10) | 格式為「yyyy-MM-dd」 |
 
 ### <a name="get-allowance-invalid">查詢作廢折讓明細</a>
 ```bash
@@ -246,10 +246,10 @@ $invoice = Invoice::getAllowanceInvalid($invoiceNo, $allowanceNo);
 ```
 
 #### $invoiceNo 及 $allowanceNo 內容說明
-參數 | 必填 | 名稱 | 類型 | 說明 |
-| ------------|---|:----------------------- | :------| :------|
-| InvoiceNo |✔| 發票號碼 | String (10) | 長度固定為 10 碼 |
-| AllowanceNo |✔| 折讓編號 | String (16) |  |
+參數 | 名稱 | 類型 | 說明 |
+| ------------|---|:----------------------- | :------|
+| InvoiceNo | 發票號碼 | String (10) | 長度固定為 10 碼 |
+| AllowanceNo | 折讓編號 | String (16) |  |
 
 ### <a name="get-invoice-word-setting">查詢字軌</a>
 ```bash
