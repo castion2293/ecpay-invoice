@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/castion2293/ecpay-invoice/compare/v1.0.1...v2.0.0) (2022-02-16)
+
+
+### Features
+
+* 升級至laravel9([@nick](https://github.com/nick)) ([b153677](https://github.com/castion2293/ecpay-invoice/commit/b15367767ca3d59c74a0053a79e768a82689faa5))
+
 ### [1.0.1](https://github.com/castion2293/ecpay-invoice/compare/v1.0.0...v1.0.1) (2021-11-01)
 
 
