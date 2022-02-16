@@ -10,11 +10,11 @@
         }
     ],
     "require": {
-        "php": "^7.3|^8.0",
-        "illuminate/support": "^8.6"
+        "php": "^8.0",
+        "illuminate/support": "^9.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^6.2"
+        "orchestra/testbench": "^7.0"
     },
     "autoload": {
         "psr-4": {
