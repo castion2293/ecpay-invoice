@@ -302,6 +302,18 @@ class Invoice
     }
 
     /**
+     * 發票列印
+     *
+     * @param array $data
+     * @return array
+     * @throws InvoiceException
+     */
+    public function invoicePrint(array $data): array
+    {
+        return $this->invoiceService->invoicePrint($data);
+    }
+
+    /**
      * 檢查必填欄位
      *
      * @param array $requiredFields
